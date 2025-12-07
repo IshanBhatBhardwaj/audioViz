@@ -1,13 +1,219 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+* {
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.parentContainer {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.cubeContainer {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.moveDown {
+  margin-top: 10px;
+}
+
+.moveUp {
+  margin-bottom: 10px;
+}
+
+.keyBoard {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  bottom: 0;
+  height: 50%;
+  width: 100%;
+  gap: 10%;
+  bottom: 0;
+}
+
+.keyBoardRow {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  gap: 2vw
+}
+
+.keyBoardRowChar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 50%;
+  width: 3vw;
+  height: 3vw;
+  max-width: 55px;
+  max-height: 55px;
+  min-height: 28px;
+  min-width: 28px;
+  box-shadow: 5px 5px 15px 3px #848884;
+  color: black;
+  font-weight: 800;
+  background-color: #C0C0C0;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.keyBoardRowChar.active {
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+  top: 2px; 
+  left: 1px; 
+  border: 3px solid #DC143C;
+}
+
+.keyBoardRowChar:active {
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2); 
+  top: 2px; 
+  left: 1px; 
+  border: 3px solid #DC143C;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1.0;
+  }
+}
+
+.titleContainer {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-size: clamp(1rem, 3vw, 2rem);
+  font-weight: 500;
+  overflow: hidden;
+  white-space: pre-wrap;
+  font-family: 'Courier New', Courier, monospace;
+  padding-top: 2vh;
+  flex-wrap: wrap;
+  padding: 1rem;
+}
+
+.char {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.enter {
+  opacity: 0;
+  transform: translateY(0.75em);
+  animation: floatIn 0.6s ease forwards;
+}
+
+.menuContainer {
+  position: absolute;
+  height: 100%;
+  width: 20%;
+  min-width: 12rem;
+  display: flex;
+  transform: translateX(-80%);
+  transition: transform 0.5s ease-in-out;
+}
+
+.moveMenuContainer {
+  transform: translateX(0%);
+}
+
+.menu {
+  width: 20%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.menu > * {
+  margin-top: 1.5vh;
+  width: clamp(2rem, 2vw, 4rem);
+  height: clamp(2rem, 2vw, 4rem);
+}
+
+.bluredContainer {
+  backdrop-filter: blur(5px);
+  height: 100%;
+  width: 80%;
+  border-right: 1px solid black;
+}
+
+.menuText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.kanyeText {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 8vw;
+  letter-spacing: 1vw;
+  font-family: 'Bebas Neue', sans-serif;
+}
+
+.playButton {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12vw;
+  height: 9vh;
+  opacity: 1;
+  transition: opacity ease-in-out 0.5s;
+}
+
+.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateY(0.75em);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.exit {
+  animation: floatOut 0.6s ease forwards;
+}
+
+@keyframes floatOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-0.75em);
+  }
+}
+
+@media (max-width: 1100px) {
+  .menuContainer {
+    display: none;
+  }
 }
