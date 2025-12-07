@@ -1,15 +1,13 @@
 import { Suspense, useEffect, useState, useRef } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { Canvas } from '@react-three/fiber'
 import { Physics } from '@react-three/rapier'
 import {OrthographicCamera } from '@react-three/drei';
-import FullscreenShader from './components/FullScreenShader';
 import RotatingBox from './components/RotatingBox';
 import PlayExample from './components/PlayExample';
 import Boundaries from './components/BoundaryBox'
 import KeyBoard from './components/KeyBoard';
 import useSound from './hooks/useSound';
 import Title from './components/Title'
-import Help from './components/Help';
 export default function App() {
 
   const [collisions, setCollisions] = useState(0)
@@ -42,7 +40,7 @@ export default function App() {
       document.removeEventListener('keydown', handleKeyPress)
       document.removeEventListener('mousedown', handleMouseDown)
     })
-  },[])
+  })
 
   return (
       <div className="parentContainer" ref={backgroundRef}>

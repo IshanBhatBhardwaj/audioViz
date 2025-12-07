@@ -1,4 +1,4 @@
-import {useEffect, useRef} from 'react'
+import {useEffect} from 'react'
 import debouncedSetTimeout from '../utils/deboucedFunction'
 
 const KeyBoard = ({keyRefs, debouncedFunctionForKey}) => {
@@ -44,9 +44,10 @@ const KeyBoard = ({keyRefs, debouncedFunctionForKey}) => {
             {keys.map((row) => {
                 return (
                     <div className="keyBoardRow">
-                        {row.map(char => {
+                        {row.map((char, i) => {
                             return (
                                 <button 
+                                key={i}
                                 ref={(el) => (keyRefs.current[char] = el)}
                                 className={importantKeys.has(char) ? 'keyBoardRowChar importantKey' : 'keyBoardRowChar'}>
                                     {char}

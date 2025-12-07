@@ -1,26 +1,21 @@
 
-import useSound from '../hooks/useSound';
 import {gsap} from 'gsap';
 import {useRef} from 'react'
 
 
 const PlayExample = ({keyRefs, debouncedFunctionForKey, backgroundRef, kanyeRef}) => {
 
-    const soundMap = useSound();
     const playButtonRef = useRef(null)
 
     const sleep = (ms) => {
         return new Promise(resolve => setTimeout(resolve, ms))
     }
 
-
     const bpm = 110
     const quarter = (60 / bpm) * 1000
     const eight = quarter / 2
     const sixteen = eight / 2
-    const backgroundStart =  quarter * 4 * 6
-    const fireworksStart = quarter * 4 * 8.75
-    const fireworksEnd = quarter * 4 * 13
+    const changeStart = quarter * 4 * 8.75
 
    const changeBackground = (backgroundRef) => {
     if (!backgroundRef.current || !kanyeRef.current) return
@@ -38,16 +33,15 @@ const PlayExample = ({keyRefs, debouncedFunctionForKey, backgroundRef, kanyeRef}
                 duration: quarter / 2000,
                 onComplete: () => {kanyeRef.current.textContent = messages[index]}
             })
-        }, fireworksStart + (quarter * i))
+        }, changeStart + (quarter * i))
     }
-    setTimeout(() => {timeline.to(kanyeRef.current, { opacity: 0, duration: quarter/1000})}, fireworksStart + (quarter * 17))
-    setTimeout(() => {timeline.to(backgroundRef.current, { backgroundColor: 'white', duration: quarter/1000})}, fireworksStart + (quarter * 17))
+    setTimeout(() => {timeline.to(kanyeRef.current, { opacity: 0, duration: quarter/1000})}, changeStart + (quarter * 17))
+    setTimeout(() => {timeline.to(backgroundRef.current, { backgroundColor: 'white', duration: quarter/1000})}, changeStart + (quarter * 17))
   }
 
     const handlePlay = async () => {
         if (!keyRefs.current || !playButtonRef.current) return
         playButtonRef.current.classList.add('hide')
-        const bars = 10
 
         const notes = [
             ['g', 'e'],['f', 'u'],['g', 'e'],['f', 'i'],['g', 'e'],['f', 'o'],['g', 'e'],['f', 'p'],
@@ -78,7 +72,6 @@ const PlayExample = ({keyRefs, debouncedFunctionForKey, backgroundRef, kanyeRef}
         let idx = 0
         while (idx < notes.length) {
             for (const note of notes[idx]) {
-                console.log(note)
                 const button = keyRefs.current[note.toUpperCase()]
                 if (button) {
                         button.dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
@@ -92,7 +85,7 @@ const PlayExample = ({keyRefs, debouncedFunctionForKey, backgroundRef, kanyeRef}
     }
 
     return (
-        <img className="playButton" onClick={handlePlay} ref={playButtonRef} src='/play.svg'/>
+        <img className="playButton" onClick={handlePlay} ref={playButtonRef} src='/play.svg' alt={'Play Button, Click Me!'}/>
     )
 }
 

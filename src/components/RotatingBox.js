@@ -9,17 +9,12 @@ const RotatingBox = ({offset, velocity, soundKey, up, down, left, right, setColl
 
     const { viewport } = useThree();
 
-    function mapRange(value, inMin, inMax, outMin, outMax) {
-      return outMin + ((value - inMin) * (outMax - outMin)) / (inMax - inMin);
-    }
-
     const meshRef = useRef();
     const rigidBodyRef = useRef();
     const colorRef = useRef()
     const colorData = useRef({ color: '#FFFDD0' })
 
     const boxsize = useMemo(() => Math.max(viewport.width * 0.1, 0.5), [viewport.width])
-    const clamp = (value, min, max) => Math.min(Math.max(min, value), max)
     const impulseScale = 0.85 * boxsize
 
     const randomSign = () => Math.round(Math.random()) * 2 - 1
@@ -49,7 +44,6 @@ const RotatingBox = ({offset, velocity, soundKey, up, down, left, right, setColl
 
     const handleKeyDown = (e) => {
       const applyRandomImpulse = () => {
-        console.log('this is the impuse i will apply. ', impulseScale)
         const impulse = 
           { 
             x: randomSign() * impulseScale,
@@ -102,20 +96,20 @@ const RotatingBox = ({offset, velocity, soundKey, up, down, left, right, setColl
         key = e.target.textContent.toLowerCase()
       }
 
-      if (key == up.toLowerCase()) {
+      if (key === up.toLowerCase()) {
         applyUpImpulse()
         return
       }
 
-      else if (key == down.toLowerCase()) {
+      else if (key === down.toLowerCase()) {
         applyDownImpulse()
       }
 
-      else if (key == left.toLowerCase()) {
+      else if (key === left.toLowerCase()) {
         applyLeftImpulse()
       }
 
-      else if (key == right.toLowerCase()) {
+      else if (key === right.toLowerCase()) {
         applyRightImpulse()
       }
       
@@ -134,7 +128,7 @@ const RotatingBox = ({offset, velocity, soundKey, up, down, left, right, setColl
         document.removeEventListener('keydown', handleKeyDown)
         document.removeEventListener('mousedown', handleKeyDown)
       })
-    }, [])
+    })
 
     return (
       <RigidBody 
@@ -146,7 +140,7 @@ const RotatingBox = ({offset, velocity, soundKey, up, down, left, right, setColl
         name={'rect'}
         onCollisionEnter={({ other }) => {
     
-          if (other.rigidBodyObject.name == 'rect') {
+          if (other.rigidBodyObject.name === 'rect') {
             setCollisions((prev) => prev + 0.5)
             changeColor(meshRef)
           }

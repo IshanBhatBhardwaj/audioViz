@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react'
+import { useRef } from 'react'
 import { useThree } from '@react-three/fiber'
 import { RigidBody } from '@react-three/rapier'
 
@@ -8,22 +8,10 @@ function Boundaries() {
   const { viewport } = useThree();
 
   const meshRef = useRef();
-  const initalWidth = useRef(viewport.width)
-  const initalHeight = useRef(viewport.height)
 
   const vWidth = viewport.width
   const vHeight = viewport.height
   const depth = 2.5
-
-  const [responsiveWidth, setResponsiveWidth] = useState(1);
-  const [responsiveHeight, setResponsiveHeight] = useState(1);
-
-
-  useEffect(() => {
-    setResponsiveWidth(vWidth/initalWidth.current)
-    setResponsiveHeight(vHeight/initalHeight.current)
-  }, [viewport.width, viewport.height])
-
 
   return (
     <>
